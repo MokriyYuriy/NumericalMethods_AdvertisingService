@@ -1,0 +1,2 @@
+class PlotWindow(object):
+    pass
