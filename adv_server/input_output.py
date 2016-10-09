@@ -3,7 +3,7 @@ from .tabulate import TabulatedFunction
 
 def read_tabulated_function(filename, delimetr=';'):
     with open(filename, 'r') as ftr:
-        arguments, values = zip(*[tuple(input_string.split(delimetr))
+        arguments, values = zip(*[tuple(map(float, input_string.split(delimetr)))
                                   for input_string in ftr.readlines()])
     return TabulatedFunction(arguments, values)
 

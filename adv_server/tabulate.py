@@ -13,9 +13,9 @@ class TabulatedFunction(object):
 
 def make_uniform_tabulation(f, left, right, num):
     ''' Returns uniform grid tabulated function on [left, right] of size num'''
-    if (npoints < 2):
+    if (num < 2):
         ValueError('The argument npoints has to be at least 2')
-    points = numpy.linspace(start=left, stop=right, num=npoints, endpoint=True)
+    points = numpy.linspace(start=left, stop=right, num=num, endpoint=True)
     return TabulatedFunction(points, [f(point) for point in points])
 
 

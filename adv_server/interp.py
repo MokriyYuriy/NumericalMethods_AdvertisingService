@@ -1,5 +1,5 @@
-def interpolate(S, z, rho, U):
-    pass
+def interpolate(f):
+    return Interpolation(f, [0, 0, 0])
 
 class Interpolation(object):
     def __init__(self, tabulated_function, coefs):
