@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import (QMainWindow, QWidget, QToolTip, QDesktopWidget,
     QComboBox)
 from PyQt5.QtGui import QFont, QDoubleValidator, QRegExpValidator
 from PyQt5.QtCore import QRegExp
-from plot import PlotWindow
+from plot import *
 
 
 class MainWindow(QWidget):
@@ -149,6 +149,11 @@ class MainWindow(QWidget):
                 return False
         return True
 
+    def manual_plot_builder(self):
+        pass
+
+    def auto_plot_builder(self):
+        pass
 
     def manual_submit_clicked(self):
         if not self._check_non_empty(self.all_manual_edit_lines):
@@ -161,6 +166,7 @@ class MainWindow(QWidget):
                       'z_e': float(self.manual_z_e.text()),
                       'z_f': float(self.manual_z_f.text()),
                       'beta': float(self.manual_beta.text())}
+        solver(parameters, self, manual=True)
 
     def auto_submit_clicked(self):
         if not self._check_non_empty(self.all_auto_edit_lines):
@@ -174,6 +180,7 @@ class MainWindow(QWidget):
                       'z_f': float(self.auto_z_f.text()),
                       'lower_beta': float(self.auto_beta_lower_bound.text()),
                       'upper_beta': float(self.auto_beta_upper_bound.text())}
+        solver(parameters, self, manual=False)
 
     def closeEvent(self, event):
         reply = QMessageBox.question(self, 'Message', 'Are you sure to exit?',
@@ -185,7 +192,6 @@ class MainWindow(QWidget):
 
 
 if __name__ == '__main__':
-
     app = QApplication(sys.argv)
     ex = MainWindow()
     sys.exit(app.exec_())
