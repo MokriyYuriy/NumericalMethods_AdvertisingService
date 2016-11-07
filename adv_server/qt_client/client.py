@@ -99,7 +99,7 @@ class MainWindow(QWidget):
                       self.manual_y0]
 
         for qline in self.all_manual_edit_lines:
-            qline.setValidator(QRegExpValidator(QRegExp('[+-]?\\d*[\\.,]?\\d+')))
+            qline.setValidator(QRegExpValidator(QRegExp('[+-]?\\d+[\\.]?\\d+')))
         self.manual_submit = QPushButton('Submit')
         self.manual_submit.clicked.connect(self.manual_submit_clicked)
 
@@ -159,7 +159,7 @@ class MainWindow(QWidget):
                       self.auto_y0]
 
         for qline in self.all_auto_edit_lines:
-            qline.setValidator(QRegExpValidator(QRegExp('[+-]?\\d*[\\.,]?\\d+')))
+            qline.setValidator(QRegExpValidator(QRegExp('[+-]?\\d+[\\.]?\\d+')))
 
         self.auto_submit = QPushButton('Submit')
         self.auto_submit.clicked.connect(self.auto_submit_clicked)

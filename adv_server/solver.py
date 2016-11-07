@@ -35,7 +35,7 @@ def use_case3(x0, y0, T, f):
     U = lambda y : 0.2
     print(S.arguments)
     write_tabulated_function(diffeq_solver(x0, y0, T, f, U, S, z)[0], 'X koshi solution.txt')
-    write_tabulated_function(diffeq_solver(x0, y0, T, f, U, S, z)[0], 'Y koshi solution.txt')
+    write_tabulated_function(diffeq_solver(x0, y0, T, f, U, S, z)[1], 'Y koshi solution.txt')
 
 
 def solver(parameters, client, manual=True):

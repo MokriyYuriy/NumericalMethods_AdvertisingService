@@ -5,3 +5,4 @@ build/
 dist/
 adv_server.egg-info/
 setup.py~
+*.png

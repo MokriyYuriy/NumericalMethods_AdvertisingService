@@ -10,12 +10,15 @@ class TabulatedFunction(object):
     def __str__(self):
         pass
 
+def make_uniform_grid(left, right, num):
+    if (num < 2):
+        ValueError('The argument npoints has to be at least 2')
+    return numpy.linspace(start=left, stop=right, num=num, endpoint=True)
 
 def make_uniform_tabulation(f, left, right, num):
     ''' Returns uniform grid tabulated function on [left, right] of size num'''
-    if (num < 2):
-        ValueError('The argument npoints has to be at least 2')
-    points = numpy.linspace(start=left, stop=right, num=num, endpoint=True)
+    points = make_uniform_grid(left, right, num)
     return TabulatedFunction(points, [f(point) for point in points])
+
 
 
