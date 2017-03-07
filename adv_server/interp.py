@@ -1,5 +1,5 @@
 from bisect import bisect_left
-from linsys import linsys_solver
+from adv_server.linsys import linsys_solver
 import numpy as np
 
 
@@ -25,13 +25,15 @@ def spline(f):
         b[i - 1] = 6 * ((f.values[i + 1] - f.values[i]) / h[i] - (f.values[i] - f.values[i - 1]) / h[i - 1])
     z = np.hstack([0, linsys_solver(A, b), 0])
     functions = []
+    coefs = []
     for i in range(len(grid) - 1):
         a = (z[i + 1] - z[i]) / (6 * h[i])
         b = z[i] / 2
         c = (f.values[i + 1] - f.values[i]) / h[i] - z[i + 1] * h[i] / 6 - z[i] * h[i] / 3
         d = f.values[i]
         functions.append(cube_poly(a, b, c, d, grid[i]))
-    return Interpolation(grid, functions)
+        coefs.append((a, b, c, d))
+    return Spline(grid, functions, coefs)
 
 
 class Interpolation(object):
@@ -40,6 +42,15 @@ class Interpolation(object):
         self.functions = functions
 
     def __call__(self, x):
-        return self.functions[max(0, min(len(self.functions), bisect_left(self.grid, x) - 1))](x)
+        return self.functions[max(0, min(len(self.functions) - 1, bisect_left(self.grid, x) - 1))](x)
 
 
+class Spline(Interpolation):
+    def __init__(self, grid, functions, coefs):
+        self.grid = grid
+        self.functions = functions
+        self.coefs = coefs
+
+    def derive(self, x):
+        i = max(0, min(len(self.functions) - 1, bisect_left(self.grid, x) - 1))
+        return 3 * self.coefs[i][0] * (x - self.grid[i]) ** 2 + 2 * self.coefs[i][1] * (x - self.grid[i]) + self.coefs[i][2]

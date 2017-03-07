@@ -1,6 +1,6 @@
 from adv_server.tabulate import TabulatedFunction, make_uniform_grid
 
-def integral(rho, left, right, num=10):
+def integral(rho, left, right, num=100):
     return uniform_grid_simpson_method(rho, left, right, num)
 
 def newthon_coates_method(rho, grid, a, b, c):
