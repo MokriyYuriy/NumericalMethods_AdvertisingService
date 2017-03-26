@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def linsys_solver(A, y):
     return gauss_linsys_solver(A, y)
 
@@ -24,6 +25,7 @@ def straight_move(A, B):
             B[j] -= B[i] * k
     return A, B
 
+
 def gauss_linsys_solver(A, y):
     y = np.array(y, copy=True, dtype=float).reshape(-1)
     A = np.array(A, copy=True, dtype=float).reshape(-1, len(y))
@@ -32,6 +34,7 @@ def gauss_linsys_solver(A, y):
     for i in range(len(y) - 1, -1, -1):
         x[i] = y[i] - x.dot(A[i].T)
     return x
+
 
 def inverse_matrix(A):
     A = np.array(A, copy=True, dtype=float)
@@ -44,8 +47,10 @@ def inverse_matrix(A):
             B[j] -= B[i] * k
     return B
 
+
 def vector_inf_norm(A):
     return np.max(np.sum(abs(np.array(A)), axis=1))
+
 
 def cond_number(A):
     return vector_inf_norm(A) * vector_inf_norm(inverse_matrix(A))

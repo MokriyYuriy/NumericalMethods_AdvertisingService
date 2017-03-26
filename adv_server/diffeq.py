@@ -2,6 +2,7 @@ from adv_server.tabulate import TabulatedFunction
 from adv_server.derivation import tab_derive
 import numpy as np
 
+
 def diffeq_solver(x0, y0, T, f, U, S, z):
     x_values, y_values = [], []
     for i in range(len(S.arguments) - 1):
@@ -11,6 +12,8 @@ def diffeq_solver(x0, y0, T, f, U, S, z):
         y0 += tab_derive(z, i) * U(y0) * (S.arguments[i + 1] - S.arguments[i])
     print(S.arguments)
     return TabulatedFunction(S.arguments, x_values), TabulatedFunction(S.arguments, y_values)
+
+
 def RK4(f, x0, grid):
     butcher_tableau = np.array([[0, 0, 0, 0, 0],
                               [0.5, 0.5, 0, 0, 0],

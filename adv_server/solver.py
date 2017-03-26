@@ -10,14 +10,18 @@ from adv_server.derivation import spline_derive
 from math import sin, cos
 import numpy as np
 
+
 def _get_S(parameters):
     return lambda t : parameters['S_c'] * t + parameters['S_d'] * sin(t)
+
 
 def _get_z(parameters):
     return lambda t : parameters['z_e'] * t + parameters['z_f'] * cos(t)
 
+
 def _get_rho(parameters):
     return lambda w : parameters['rho_a'] * w * (parameters['rho_b'] - w)
+
 
 def use_case1(rho, S, z, T):
     tabulated_S = make_uniform_tabulation(S, 0, T, 10)
@@ -27,12 +31,14 @@ def use_case1(rho, S, z, T):
     write_tabulated_function(tabulated_z, 'z.txt')
     write_tabulated_function(tabulated_rho, 'rho.txt')
 
+    
 def use_case2():
     tabulated_rho = read_tabulated_function('rho.txt')
     U = tabulated_integral(tabulated_rho)
     with open('coefs.txt', 'w') as ftw:
         print(' '.join(map(str, interpolate(U).coefs)))
 
+        
 def use_case3(x0, y0, T, f):
     S = read_tabulated_function('S.txt')
     z = read_tabulated_function('z.txt')
@@ -42,6 +48,7 @@ def use_case3(x0, y0, T, f):
     write_tabulated_function(diffeq_solver(x0, y0, T, f, U, S, z)[1], 'Y koshi solution.txt')
 
 
+    
 def main_solver(parameters, client, manual=True):
     grid_size = 1000
     client.update_status("Solver starts to work")
